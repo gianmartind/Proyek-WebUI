@@ -129,5 +129,4 @@ if __name__ == '__main__':
     except:
         print("Model is likely already an inference model")
 
-
     app.run(host='0.0.0.0', port='80')
