@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/w3.css') }}" />
+  <title>Index Page</title>
+</head>
+
+<body>
+  <div class="w3-container w3-cell-row" style="padding-top: 20px">
+    <div class="w3-container w3-cell" style="width: 35%">
+      <div class="w3-container w3-cell-row w3-border" style="min-height: 200px;">
+        <img id="input-img" src="" alt="input image" style="max-width: 100%;" />
+      </div>
+      <div class="w3-container w3-cell-row">
+        <div class="w3-cell">
+          <input type="file" name="file" id="image-input">
+          <button id="submit" onclick="upload_file()" type="button">Submit</button>
+        </div>
+        <button class="w3-button w3-cell w3-blue" onclick="detect_image()">Detect</button>
+      </div>
+    </div>
+    <div class="w3-container w3-cell">
+      <div class="w3-container w3-cell-row w3-border" style="min-height: 400px">
+        <img class="output-img" src="" id="detection" alt="output-img" style="max-width: 100%;"/>
+      </div>
+    </div>
+  </div>
+</body>
+<script>
+  var image_path = ""
+
+  function upload_file() {
+    var input = document.querySelector('input[type="file"]')
+
+    var data = new FormData()
+    data.append('file', input.files[0])
+    data.append('user', 'hubot')
+
+    fetch('/upload', {
+      method: 'POST',
+      body: data
+    }).then((response) => {
+      return response.json();
+    }).then((result) => {
+      document.getElementById("input-img").src = result.result
+      image_path = result.result
+      console.log(image_path)
+    });
+  }
+
+  function detect_image(){
+    fetch('/detect?image_path='+image_path).then((response) => {
+      return response.json();
+    }).then((result) => {
+      document.getElementById("detection").src = result.result
+      //image_path = result.result
+      //console.log(image_path)
+    });
+  }
+
+</script>
+
+</html>
