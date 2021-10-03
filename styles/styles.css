@@ -1,0 +1,65 @@
+/* Section untuk dalam main */
+
+.main_home{
+    padding-top: 10px;
+}
+
+.pilih_gambar{
+    width: 35%;
+    margin: 0;
+}
+
+.hasil_keluaran{
+
+}
+
+/* Section untuk child pilih_gambar */
+
+.input_pic{
+    min-height: 200px;
+}
+
+#input-img{
+    max-width: 100%;
+}
+
+input[type=file]{
+    display: none;
+}
+
+.image-input{
+    background-color: rgb(65, 133, 242);
+    color: whitesmoke;
+    border: 1px solid rgb(65, 133, 242);
+    border-radius: 20px;
+    display: inline-block;
+    padding: 15px;
+    padding-left: 30px;
+    padding-right: 30px;
+    cursor: pointer;
+    margin-right: 10%;
+}
+
+#submit{
+    background-color: rgb(65, 133, 242);
+    color: whitesmoke;
+    border: 1px solid rgb(65, 133, 242);
+    border-radius: 20px;
+    padding: 15px;
+    padding-left: 30px;
+    padding-right: 30px;
+    cursor: pointer;
+}
+
+.detect{
+    
+}
+
+#image-input{
+    
+}
+
+.button_section{
+
+}
+
