@@ -22,16 +22,21 @@ h2{
 }
 
 .main_home{
-    padding-top: 10px;
+    
 }
-
+.title{
+    
+}
+.parent_container{
+    display: flex;
+}
 .pilih_gambar{
-    width: 35%;
+    width: 300px;
     margin: 0;
 }
 
 .hasil_keluaran{
-
+    
 }
 
 /* Section untuk child pilih_gambar */
@@ -55,10 +60,8 @@ input[type=file]{
     border-radius: 20px;
     display: inline-block;
     padding: 15px;
-    padding-left: 30px;
-    padding-right: 30px;
     cursor: pointer;
-    margin-right: 10%;
+    margin-right: 50px;
     font-family: "Google";
     font-size: 16px;
     transition: 0.4s;
@@ -101,7 +104,7 @@ input[type=file]{
     padding-left: 30px;
     padding-right: 30px;
     margin-top: 20px;
-    margin-left: 15%;
+
     cursor: pointer;
     font-family: "Google";
     font-size: 16px;
@@ -123,3 +126,8 @@ input[type=file]{
 
 }
 
+.verticalLine {
+    border-left:  solid #000000;
+    margin-right: 25px;
+    height: 1000px;
+}

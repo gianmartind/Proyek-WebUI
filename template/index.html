@@ -12,29 +12,37 @@
 
 <body>
   <div class="w3-container w3-cell-row main_home">
-    <h1>Deteksi Jenis Kendaraan</h1>
-    <div class="w3-container w3-cell pilih_gambar" >
-      <h2>Pilih Gambar</h2>
-      <div class="w3-container w3-cell-row w3-border input_pic">
-        <img id="input-img" src="../picture/input_placeholder.jpg" alt="input image" />
-      </div>
-      <div class="w3-container w3-cell-row button_section">
-        <div class="w3-cell">
-          <label for="image-input" class="image-input">
-            Choose File
-          </label>
-          <input type="file" name="file" id="image-input">
-          <button id="submit" onclick="upload_file()" type="button">Submit</button>
+    <div class="w3-container w3-cell-row title">
+      <h1>Deteksi Jenis Kendaraan</h1>
+    </div>
+    <hr>
+    <div class = "w3-container w3-cell-row parent_container">
+      <div class="w3-container w3-cell pilih_gambar" >
+        <h2>Pilih Gambar</h2>
+        <div class="w3-container w3-cell-row w3-border input_pic">
+          <img id="input-img" src="../picture/input_placeholder.jpg" alt="input image" />
         </div>
-        <button class="w3-button w3-cell w3-blue detect" onclick="detect_image()">Detect</button>
+        <div class="w3-container w3-cell-row button_section">
+          <div class="w3-cell">
+            <label for="image-input" class="image-input">
+              Choose File
+            </label>
+            <input type="file" name="file" id="image-input">
+            <button id="submit" onclick="upload_file()" type="button">Submit</button>
+          </div>
+          <button class="w3-button w3-cell w3-blue detect" onclick="detect_image()">Detect</button>
+        </div>
+      </div>
+      <div class="verticalLine">
+      </div>
+      <div class="w3-container w3-cell hasil_keluaran">
+        <h2>Hasil Deteksi</h2>
+        <div class="w3-container w3-cell-row w3-border" style="min-height: 400px">
+          <img class="output-img" src="../picture/output_placeholder.png" id="detection" alt="output-img" style="max-width: 100%;"/>
+        </div>
       </div>
     </div>
-    <div class="w3-container w3-cell hasil_keluaran">
-      <h2>Hasil Deteksi</h2>
-      <div class="w3-container w3-cell-row w3-border" style="min-height: 400px">
-        <img class="output-img" src="../picture/output_placeholder.png" id="detection" alt="output-img" style="max-width: 100%;"/>
-      </div>
-    </div>
+    
   </div>
 </body>
 
