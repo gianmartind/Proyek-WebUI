@@ -2,7 +2,7 @@
 
 @font-face {
     font-family: "Google";
-    src: url(../font/Product\ Sans\ Regular.ttf);
+    src: url(../font/Product-Sans-Regular.ttf);
 }
 
 @font-face {
@@ -27,16 +27,23 @@ h2{
 .title{
     
 }
-.parent_container{
-    display: flex;
-}
-.pilih_gambar{
-    width: 300px;
-    margin: 0;
+
+input[type=file] {
+    display: none;
 }
 
 .hasil_keluaran{
     
+}
+
+.data-name {
+    font-size: larger;
+    color: rgb(65, 133, 242);
+}
+
+.result-data {
+    font-family: "Google";
+    font-size: large;
 }
 
 /* Section untuk child pilih_gambar */
@@ -49,8 +56,14 @@ h2{
     max-width: 100%;
 }
 
-input[type=file]{
-    display: none;
+.input-file {
+    border-radius: 20px;
+}
+
+.input-file:hover {
+    color: whitesmoke!important;
+    background-color: rgb(65, 133, 242)!important;
+    transition: 0.4s;
 }
 
 .image-input{
@@ -61,7 +74,6 @@ input[type=file]{
     display: inline-block;
     padding: 15px;
     cursor: pointer;
-    margin-right: 50px;
     font-family: "Google";
     font-size: 16px;
     transition: 0.4s;
@@ -74,7 +86,7 @@ input[type=file]{
     transition: 0.4s;
 }
 
-#submit{
+.buttonb{
     background-color: rgb(65, 133, 242);
     color: whitesmoke;
     border: 1px solid rgb(65, 133, 242);
@@ -88,7 +100,7 @@ input[type=file]{
     transition: 0.4s;    
 }
 
-#submit:hover{
+.buttonb:hover{
     color: rgb(65, 133, 242);
     background-color: whitesmoke;
     border: 1px solid rgb(65, 133, 242);
@@ -103,7 +115,6 @@ input[type=file]{
     padding: 15px;
     padding-left: 30px;
     padding-right: 30px;
-    margin-top: 20px;
 
     cursor: pointer;
     font-family: "Google";
@@ -126,8 +137,10 @@ input[type=file]{
 
 }
 
+.image-container {
+    min-height: 400px;
+}
+
 .verticalLine {
     border-left:  solid #000000;
-    margin-right: 25px;
-    height: 1000px;
 }

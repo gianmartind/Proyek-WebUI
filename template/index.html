@@ -16,37 +16,53 @@
       <h1>Deteksi Jenis Kendaraan</h1>
     </div>
     <hr>
-    <div class = "w3-container w3-cell-row parent_container">
-      <div class="w3-container w3-cell pilih_gambar" >
+    <div class = "w3-container w3-row">
+      <div class="w3-container w3-third">
         <h2>Pilih Gambar</h2>
         <div class="w3-container w3-cell-row w3-border input_pic">
           <img id="input-img" src="../picture/input_placeholder.jpg" alt="input image" />
         </div>
         <div class="w3-container w3-cell-row button_section">
-          <div class="w3-cell">
-            <label for="image-input" class="image-input">
+          <div class="w3-cell-row w3-padding">
+            <label for="image-input" class="image-input w3-cell" id='image-input-button'>
               Choose File
             </label>
-            <input type="file" name="file" id="image-input">
-            <button id="submit" onclick="upload_file()" type="button">Submit</button>
+            <input class="input-file" type="file" name="file" id="image-input">
+            <button id="submit" onclick="upload_file()" type="button" class="buttonb w3-cell">Submit</button>
           </div>
-          <button class="w3-button w3-cell w3-blue detect" onclick="detect_image()">Detect</button>
+          <div class="w3-cell-row w3-padding">
+            <button class="w3-button w3-cell-row w3-blue detect" onclick="detect_image()">Detect</button>
+          </div>
         </div>
       </div>
-      <div class="verticalLine">
-      </div>
-      <div class="w3-container w3-cell hasil_keluaran">
-        <h2>Hasil Deteksi</h2>
-        <div class="w3-container w3-cell-row w3-border" style="min-height: 400px">
-          <img class="output-img" src="../picture/output_placeholder.png" id="detection" alt="output-img" style="max-width: 100%;"/>
+      <div class="w3-container w3-twothird w3-leftbar hasil_keluaran">
+        <div class="w3-cell-row">
+          <div class="w3-cell image-container">
+            <h2>Hasil Deteksi</h2>
+            <div class="w3-container w3-border" style="min-height: 400px">
+              <img class="output-img" src="../picture/output_placeholder.png" id="detection" alt="output-img" style="max-width: 100%;"/>
+            </div>
+          </div>
+        </div>
+        
+        <div class="result-data w3-container w3-padding">
+          <div><span class="data-name">Total: </span> <span id="detect-total"></span></div>
+          <div><span class="data-name">Mobil: </span> <span id="detect-mobil"></span></div>
+          <div><span class="data-name">Motor: </span> <span id="detect-motor"></span></div>
         </div>
       </div>
     </div>
-    
+      
   </div>
+    
 </body>
 
 <script>
+  document.getElementById('image-input').onchange = function () {
+    let value = this.value.split("\\")
+    document.getElementById('image-input-button').innerHTML = value[2]
+  };
+
   var image_path = ""
 
   function upload_file() {
@@ -62,17 +78,29 @@
     }).then((response) => {
       return response.json();
     }).then((result) => {
-      document.getElementById("input-img").src = result.result
+      document.getElementById('input-img').src = result.result
       image_path = result.result
       console.log(image_path)
+      document.getElementById('image-input-button').innerHTML = "Choose File"
+      document.querySelector('input[type="file"]').value = ""
     });
   }
+
+  var detection = document.getElementById("detection")
+  var detect_total = document.getElementById('detect-total')
+  var detect_mobil = document.getElementById('detect-mobil')
+  var detect_motor = document.getElementById('detect-motor')
 
   function detect_image(){
     fetch('/detect?image_path='+image_path).then((response) => {
       return response.json();
     }).then((result) => {
-      document.getElementById("detection").src = result.result
+      
+      detection.src = result.path
+      detect_mobil.innerHTML = result.mobil
+      detect_motor.innerHTML = result.motor
+      detect_total.innerHTML = result.mobil + result.motor
+      console.log(result)
       //image_path = result.result
       //console.log(image_path)
     });
