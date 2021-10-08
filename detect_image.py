@@ -61,7 +61,7 @@ def detect(image_path, model, filename, confidence_cutoff):
     # correct for image scale
     boxes /= scale
 
-    detect_result = dict()
+    detect_result = {"mobil":0, "motor":0}
 
     # visualize detections
     for box, score, label in zip(boxes[0], scores[0], labels[0]):
@@ -81,10 +81,7 @@ def detect(image_path, model, filename, confidence_cutoff):
         else:
             caption = "{} {:.3f}".format(labels_to_names[label], score)
 
-        if labels_to_names[label] in detect_result:
-            detect_result[labels_to_names[label]] = detect_result[labels_to_names[label]] + 1
-        else:
-            detect_result[labels_to_names[label]] = 1
+        detect_result[labels_to_names[label]] = detect_result[labels_to_names[label]] + 1
 
         #cv2.putText(draw, caption, (b[0], b[1] - 10), cv2.FONT_HERSHEY_PLAIN, 2, (0, 0, 0), 3)
         cv2.putText(draw, caption, (b[0], b[1] - 10), cv2.FONT_HERSHEY_PLAIN, 2, (255, 255, 255), 2)

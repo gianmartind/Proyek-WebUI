@@ -19,8 +19,8 @@
     <div class = "w3-container w3-row">
       <div class="w3-container w3-third">
         <h2>Pilih Gambar</h2>
-        <div class="w3-container w3-cell-row w3-border input_pic">
-          <img id="input-img" src="../picture/input_placeholder.jpg" alt="input image" />
+        <div class="w3-container w3-cell-row w3-border">
+          <img id="input-img" src="../picture/input_placeholder.jpg" alt="input image" class="input_pic" />
         </div>
         <div class="w3-container w3-cell-row button_section">
           <div class="w3-cell-row w3-padding">
@@ -39,8 +39,11 @@
         <div class="w3-cell-row">
           <div class="w3-cell image-container">
             <h2>Hasil Deteksi</h2>
-            <div class="w3-container w3-border" style="min-height: 400px">
-              <img class="output-img" src="../picture/output_placeholder.png" id="detection" alt="output-img" style="max-width: 100%;"/>
+            <div class="w3-container w3-border" style="position: relative;">
+              <div class="loader-container" id='loader-container'>
+                <div class="loader"></div>
+              </div>
+              <img class="output-img" src="../picture/output_placeholder.png" id="detection" alt="output-img"/>
             </div>
           </div>
         </div>
@@ -89,8 +92,10 @@
   var detect_total = document.getElementById('detect-total')
   var detect_mobil = document.getElementById('detect-mobil')
   var detect_motor = document.getElementById('detect-motor')
+  var loader = document.getElementById('loader-container')
 
   function detect_image(){
+    loader.style.display = "block"
     fetch('/detect?image_path='+image_path).then((response) => {
       return response.json();
     }).then((result) => {
@@ -100,6 +105,7 @@
       detect_motor.innerHTML = result.motor
       detect_total.innerHTML = result.mobil + result.motor
       console.log(result)
+      loader.style.display = "none"
       //image_path = result.result
       //console.log(image_path)
     });
