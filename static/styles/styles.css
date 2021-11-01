@@ -1,173 +1,271 @@
 /* Section init font */
 
 @font-face {
-    font-family: "Google";
-    src: url(../font/Product-Sans-Regular.ttf);
+  font-family: "Google";
+  src: url(../font/Product-Sans-Regular.ttf);
 }
 
 @font-face {
-    font-family: "FontAwesome";
-    src: url(../font/fontawesome-webfont.ttf);
+  font-family: "FontAwesome";
+  src: url(../font/fontawesome-webfont.ttf);
 }
 
 /* Section untuk dalam main */
 
-h1{
-    font-family: "Google";
-    font-size: 48px;
+h1 {
+  font-family: "Google";
+  font-size: 48px;
 }
 
-h2{
-    font-family: 'Segoe UI Light', Tahoma, Geneva, Verdana, sans-serif;
+h2 {
+  font-family: "Segoe UI Light", Tahoma, Geneva, Verdana, sans-serif;
 }
 
-.main_home{
-    
+.main_home {
 }
-.title{
-    
+.title {
 }
 
-input[type=file] {
-    display: none;
+input[type="file"] {
+  display: none;
 }
 
-.hasil_keluaran{
-    
+.hasil_keluaran {
 }
 
 .data-name {
-    font-size: larger;
-    color: rgb(65, 133, 242);
+  font-size: larger;
+  color: rgb(65, 133, 242);
 }
 
 .result-data {
-    font-family: "Google";
-    font-size: large;
+  font-family: "Google";
+  font-size: large;
 }
 
 /* Section untuk child pilih_gambar */
 
-.input_pic{
-    min-height: 200px;
+.input_pic {
+  min-height: 200px;
 }
 
-#input-img{
-    max-width: 100%;
+#input-img {
+  max-width: 100%;
 }
 
 .input-file {
-    border-radius: 20px;
+  border-radius: 20px;
 }
 
 .input-file:hover {
-    color: whitesmoke!important;
-    backgrend-color: rgb(65, 133, 242)!important;
-    transition: 0.4s;
+  color: whitesmoke !important;
+  backgrend-color: rgb(65, 133, 242) !important;
+  transition: 0.4s;
 }
 
-.image-input{
+.image-input {
+  background-color: rgb(65, 133, 242);
+  color: whitesmoke;
+  border: 1px solid rgb(65, 133, 242);
+  border-radius: 20px;
+  display: inline-block;
+  padding: 15px;
+  cursor: pointer;
+  font-family: "Google";
+  font-size: 16px;
+  transition: 0.4s;
+}
+
+.image-input:hover {
+  color: rgb(65, 133, 242);
+  background-color: whitesmoke;
+  border: 1px solid rgb(65, 133, 242);
+  transition: 0.4s;
+}
+
+.buttonb {
+  background-color: rgb(65, 133, 242);
+  color: whitesmoke;
+  border: 1px solid rgb(65, 133, 242);
+  border-radius: 20px;
+  padding: 15px;
+  padding-left: 30px;
+  padding-right: 30px;
+  cursor: pointer;
+  font-family: "Google";
+  font-size: 16px;
+  transition: 0.4s;
+}
+
+.buttonb:hover {
+  color: rgb(65, 133, 242);
+  background-color: whitesmoke;
+  border: 1px solid rgb(65, 133, 242);
+  transition: 0.4s;
+}
+
+.buttonb-small {
     background-color: rgb(65, 133, 242);
     color: whitesmoke;
     border: 1px solid rgb(65, 133, 242);
-    border-radius: 20px;
-    display: inline-block;
-    padding: 15px;
+    border-radius: 6px;
+    padding: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
     cursor: pointer;
     font-family: "Google";
-    font-size: 16px;
     transition: 0.4s;
-}
-
-.image-input:hover{
+  }
+  
+  .buttonb-small:hover {
     color: rgb(65, 133, 242);
     background-color: whitesmoke;
     border: 1px solid rgb(65, 133, 242);
     transition: 0.4s;
+  }
+
+.detect {
+  background-color: rgb(62, 158, 51);
+  color: whitesmoke;
+  border: 1px solid rgb(62, 158, 51);
+  border-radius: 20px;
+  padding: 15px;
+  padding-left: 30px;
+  padding-right: 30px;
+
+  cursor: pointer;
+  font-family: "Google";
+  font-size: 16px;
+  transition: 0.4s;
 }
 
-.buttonb{
-    background-color: rgb(65, 133, 242);
-    color: whitesmoke;
-    border: 1px solid rgb(65, 133, 242);
-    border-radius: 20px;
-    padding: 15px;
-    padding-left: 30px;
-    padding-right: 30px;
-    cursor: pointer;
-    font-family: "Google";
-    font-size: 16px;
-    transition: 0.4s;    
+.detect:hover {
+  color: rgb(62, 158, 51);
+  background-color: whitesmoke;
+  border: 1px solid rgb(62, 158, 51);
+  transition: 0.4s;
 }
 
-.buttonb:hover{
-    color: rgb(65, 133, 242);
-    background-color: whitesmoke;
-    border: 1px solid rgb(65, 133, 242);
-    transition: 0.4s;
+#image-input {
 }
 
-.detect{
-    background-color: rgb(62, 158, 51);
-    color: whitesmoke;
-    border: 1px solid rgb(62, 158, 51);
-    border-radius: 20px;
-    padding: 15px;
-    padding-left: 30px;
-    padding-right: 30px;
-
-    cursor: pointer;
-    font-family: "Google";
-    font-size: 16px;
-    transition: 0.4s;
-}
-
-.detect:hover{
-    color: rgb(62, 158, 51);
-    background-color: whitesmoke;
-    border: 1px solid rgb(62, 158, 51);
-    transition: 0.4s;
-}
-
-#image-input{
-    
-}
-
-.button_section{
-
+.button_section {
 }
 
 .image-container {
-    min-height: 400px;
+  min-height: 400px;
 }
 
 .verticalLine {
-    border-left:  solid #000000;
+  border-left: solid #000000;
 }
 
 .output-img {
-    width: 100%; 
-    min-height: 400px;
+  width: 100%;
+  min-height: 400px;
 }
 
 .loader-container {
-    position: absolute;
-    transform: translate(-50%, -50%);
-    top: 50%;
-    left: 50%;
-    display: none;
+  position: absolute;
+  transform: translate(-50%, -50%);
+  top: 50%;
+  left: 50%;
+  display: none;
 }
 
 .loader {
-    border: 8px solid whitesmoke; /* Light grey */
-    border-top: 8px solid rgb(65, 133, 242); /* Blue */
-    border-radius: 50%;
-    width: 60px;
-    height: 60px;
-    animation: spin 2s linear infinite;
+  border: 8px solid whitesmoke; /* Light grey */
+  border-top: 8px solid rgb(65, 133, 242); /* Blue */
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
   }
-  
-  @keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
+  100% {
+    transform: rotate(360deg);
   }
+}
+
+.selected-model {
+  margin-top: 0px;
+  margin-left: 18px;
+  font-size: small;
+  font-family: "Google";
+  font-style: italic;
+  color: rgba(0, 0, 0, 0.55);
+}
+
+.model-selector {
+  font-family: "Google";
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+select {
+  appearance: none;
+  background-color: transparent;
+  border: none;
+  padding: 0 1em 0 0;
+  margin: 0;
+  width: 100%;
+  font-family: inherit;
+  font-size: inherit;
+  cursor: inherit;
+  line-height: inherit;
+  outline: none;
+}
+
+select::-ms-expand {
+  display: none;
+}
+
+:root {
+  --select-border: #777;
+  --select-focus: blue;
+  --select-arrow: var(--select-border);
+}
+
+.select {
+  width: 100%;
+  min-width: 15ch;
+  max-width: 30ch;
+  border: 1px solid var(--select-border);
+  border-radius: 0.25em;
+  padding: 0.25em 0.5em;
+  font-size: 1.25rem;
+  cursor: pointer;
+  line-height: 1.1;
+  background-color: #fff;
+  background-image: linear-gradient(to top, #f9f9f9, #fff 33%);
+  display: grid;
+  grid-template-areas: "select";
+  align-items: center;
+}
+
+.select::after {
+  content: "";
+  width: 0.8em;
+  height: 0.5em;
+  background-color: var(--select-arrow);
+  clip-path: polygon(100% 0%, 0 0%, 50% 100%);
+  justify-self: end;
+}
+
+select,
+.select:after {
+  grid-area: select;
+}
+
+#model-loader {
+    font-family: 'Courier New', Courier, monospace;
+    font-size: x-large;
+}

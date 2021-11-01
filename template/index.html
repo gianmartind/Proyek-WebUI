@@ -2,115 +2,167 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/w3.css') }}" />
-  <link rel="stylesheet" href="{{ url_for('static', filename='styles/styles.css') }}">
-  <title>Halaman Utama</title>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/w3.css') }}" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/styles.css') }}">
+    <title>Halaman Utama</title>
 </head>
 
 <body>
-  <div class="w3-container w3-cell-row main_home">
-    <div class="w3-container w3-cell-row title">
-      <h1>Deteksi Jenis Kendaraan</h1>
-    </div>
-    <hr>
-    <div class = "w3-container w3-row">
-      <div class="w3-container w3-third">
-        <h2>Pilih Gambar</h2>
-        <div class="w3-container w3-cell-row w3-border">
-          <img id="input-img" src="../picture/input_placeholder.jpg" alt="input image" class="input_pic" />
+    <div class="w3-container w3-cell-row main_home">
+        <div class="w3-container w3-cell-row title">
+            <h1>Deteksi Jenis Kendaraan</h1>
         </div>
-        <div class="w3-container w3-cell-row button_section">
-          <div class="w3-cell-row w3-padding">
-            <label for="image-input" class="image-input w3-cell" id='image-input-button'>
-              Choose File
-            </label>
-            <input class="input-file" type="file" name="file" id="image-input">
-            <button id="submit" onclick="upload_file()" type="button" class="buttonb w3-cell">Submit</button>
-          </div>
-          <div class="w3-cell-row w3-padding">
-            <button class="w3-button w3-cell-row w3-blue detect" onclick="detect_image()">Detect</button>
-          </div>
-        </div>
-      </div>
-      <div class="w3-container w3-twothird w3-leftbar hasil_keluaran">
-        <div class="w3-cell-row">
-          <div class="w3-cell image-container">
-            <h2>Hasil Deteksi</h2>
-            <div class="w3-container w3-border" style="position: relative;">
-              <div class="loader-container" id='loader-container'>
-                <div class="loader"></div>
-              </div>
-              <img class="output-img" src="../picture/output_placeholder.png" id="detection" alt="output-img"/>
+        <hr>
+        <div class="w3-container w3-cell-row">
+            <div class="w3-container w3-cell w3-third w3-mobile">
+                <h2>Pilih Gambar</h2>
+                <div class="w3-margin w3-cell-row w3-container model-selector">
+                    <div class="w3-cell">
+                        <label for="model">Choose model: </label>
+                    </div>
+                    <div class="w3-cell select">
+                        <select name="model" id="model">
+                            {% for model in models %}
+                            <option value="{{model}}" id="{{model}}">{{model}}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="w3-cell" id="model-loader">
+                        !
+                    </div>
+                    <div class="w3-cell">
+                        <button class="buttonb-small" id="choose_model" onclick="choose_model()" type="button">Choose</button>
+                    </div>
+                </div>
+                <div class="w3-container w3-cell-row w3-border">
+                    <img id="input-img" src="../picture/input_placeholder.jpg" alt="input image" class="input_pic" />
+                </div>
+                <div class="w3-container w3-cell-row button_section">
+                    <div class="w3-cell-row w3-padding">
+                        <label for="image-input" class="image-input w3-cell" id='image-input-button'>
+                            Choose File
+                        </label>
+                        <input class="input-file" type="file" name="file" id="image-input" accept="image/*">
+                        <button id="submit" onclick="upload_file()" type="button"
+                            class="buttonb w3-cell">Submit</button>
+                    </div>
+                    <div class="w3-cell-row w3-padding">
+                        <button class="w3-button w3-cell-row w3-blue detect" onclick="detect_image()">Detect</button>
+                        <p class="selected-model" id="selected-model">model not selected!</p>
+                    </div>
+                </div>
             </div>
-          </div>
+            <div class="w3-container w3-cell w3-twothird w3-leftbar w3-mobile hasil_keluaran">
+                <div class="w3-cell-row">
+                    <div class="w3-cell image-container">
+                        <span>
+                            <h2>Hasil Deteksi</h2>
+                        </span>
+                        <div class="w3-container w3-border" style="position: relative;">
+                            <div class="loader-container" id='loader-container'>
+                                <div class="loader"></div>
+                            </div>
+                            <img class="output-img" src="../picture/output_placeholder.png" id="detection"
+                                alt="output-img" />
+                        </div>
+                    </div>
+                </div>
+                <div class="result-data w3-container w3-padding">
+                    <span class="w3-margin"><span class="data-name">Total: </span> <span
+                            id="detect-total"></span></span>
+                    <span class="w3-margin"><span class="data-name">Mobil (Non Sedan): </span> <span
+                            id="detect-mobil"></span></span>
+                    <span class="w3-margin"><span class="data-name">Motor: </span> <span
+                            id="detect-motor"></span></span>
+                    <span class="w3-margin"><span class="data-name">Sedan: </span> <span
+                            id="detect-sedan"></span></span>
+                </div>
+            </div>
         </div>
-        
-        <div class="result-data w3-container w3-padding">
-          <div><span class="data-name">Total: </span> <span id="detect-total"></span></div>
-          <div><span class="data-name">Mobil: </span> <span id="detect-mobil"></span></div>
-          <div><span class="data-name">Motor: </span> <span id="detect-motor"></span></div>
-        </div>
-      </div>
     </div>
-  </div>
-    
+
 </body>
 
 <script>
-  document.getElementById('image-input').onchange = function () {
-    let value = this.value.split("\\")
-    document.getElementById('image-input-button').innerHTML = value[2]
-  };
+    var model_set = false
+    var image_path = ""
 
-  var image_path = ""
+    document.getElementById('image-input').onchange = function () {
+        let value = this.value.split("\\")
+        document.getElementById('image-input-button').innerHTML = value[2]
+    };
 
-  function upload_file() {
-    var input = document.querySelector('input[type="file"]')
+    function remove_green(option) {
+        option.classList.remove('w3-green')
+    }
+    function choose_model() {
+        let model_name = document.getElementById('model').value
+        let model_loader = document.getElementById('model-loader')
+        model_loader.textContent = "."
+        fetch('/get_model?model_name=' + model_name).then((response) => {
+            return response.json();
+        }).then((result) => {
+            console.log(result.result)
+            //image_path = result.result
+            model_set = true
+            model_loader.textContent = "\u2713"
+            document.getElementById("selected-model").textContent = result.result
+            //console.log(image_path)
+        });
+    }
 
-    var data = new FormData()
-    data.append('file', input.files[0])
-    data.append('user', 'hubot')
+    function upload_file() {
+        let input = document.querySelector('input[type="file"]')
 
-    fetch('/upload', {
-      method: 'POST',
-      body: data
-    }).then((response) => {
-      return response.json();
-    }).then((result) => {
-      document.getElementById('input-img').src = result.result
-      image_path = result.result
-      console.log(image_path)
-      document.getElementById('image-input-button').innerHTML = "Choose File"
-      document.querySelector('input[type="file"]').value = ""
-    });
-  }
+        let data = new FormData()
+        data.append('file', input.files[0])
+        data.append('user', 'hubot')
 
-  var detection = document.getElementById("detection")
-  var detect_total = document.getElementById('detect-total')
-  var detect_mobil = document.getElementById('detect-mobil')
-  var detect_motor = document.getElementById('detect-motor')
-  var loader = document.getElementById('loader-container')
+        fetch('/upload', {
+            method: 'POST',
+            body: data
+        }).then((response) => {
+            return response.json();
+        }).then((result) => {
+            document.getElementById('input-img').src = result.result
+            image_path = result.result
+            console.log(image_path)
+            document.getElementById('image-input-button').innerHTML = "Choose File"
+            document.querySelector('input[type="file"]').value = ""
+        });
+    }
 
-  function detect_image(){
-    loader.style.display = "block"
-    fetch('/detect?image_path='+image_path).then((response) => {
-      return response.json();
-    }).then((result) => {
-      
-      detection.src = result.path
-      detect_mobil.innerHTML = result.mobil
-      detect_motor.innerHTML = result.motor
-      detect_total.innerHTML = result.mobil + result.motor
-      console.log(result)
-      loader.style.display = "none"
-      //image_path = result.result
-      //console.log(image_path)
-    });
-  }
+    var detection = document.getElementById("detection")
+    var detect_total = document.getElementById('detect-total')
+    var detect_mobil = document.getElementById('detect-mobil')
+    var detect_motor = document.getElementById('detect-motor')
+    var detect_sedan = document.getElementById('detect-sedan')
+    var loader = document.getElementById('loader-container')
 
+    function detect_image() {
+        if (model_set & image_path != "") {
+            loader.style.display = "block"
+            fetch('/detect?image_path=' + image_path).then((response) => {
+                return response.json();
+            }).then((result) => {
+
+                detection.src = result.path
+                detect_mobil.innerHTML = result.mobil
+                detect_motor.innerHTML = result.motor
+                detect_sedan.innerHTML = result.sedan
+                detect_total.innerHTML = result.mobil + result.motor
+                console.log(result)
+                loader.style.display = "none"
+                //image_path = result.result
+                //console.log(image_path)
+            });
+        } else {
+            alert("Model not set and/or Image not selected!")
+        }
+    }
 </script>
 
 </html>
