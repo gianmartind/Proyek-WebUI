@@ -116,22 +116,25 @@ def detect(image_path, model, filename, confidence_cutoff):
     cutoff_motor = confidence_cutoff['motor']
     cutoff_mobil = confidence_cutoff['mobil']
     cutoff_sedan = confidence_cutoff['sedan']
+    print(cutoff_motor, cutoff_mobil, cutoff_sedan)
 
+    i = 0
     # visualize detections
     for box, score, label in zip(boxes[0], scores[0], labels[0]):
         # if overlap break
 
         # scores are sorted so we can break
-        if label == 0:
-            if score < cutoff_motor:
-                break
-        elif label == 1:
-            if score < cutoff_mobil:
-                break
-        elif label == 2:
-            if score < cutoff_sedan:
-                break
-
+        if label == 0 and score < cutoff_motor:
+            print(label, score, i)
+            continue
+        elif label == 1 and score < cutoff_mobil:
+            print(label, score, i)
+            continue
+        elif label == 2 and score < cutoff_sedan:
+            continue
+        elif label == -1:
+            continue
+        i += 1
         # Add boxes and captions
         color = (255, 255, 255)
         thickness = 2

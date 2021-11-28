@@ -21,6 +21,15 @@ h2 {
   font-family: "Segoe UI Light", Tahoma, Geneva, Verdana, sans-serif;
 }
 
+h5 {
+  font-family: "Segoe UI Light", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+label {
+  font-family: "Google";
+  text-align: center;
+}
+
 .main_home {
 }
 .title {

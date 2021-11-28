@@ -58,8 +58,11 @@ def get_model():
 @app.route('/detect')
 def detect_object():
     image_path = request.args.get('image_path')
-    confidence_cutoff = {'mobil': 0.7, 'motor': 0.7, 'sedan': 0.7}
-    print(image_path)
+    mobil_conf = float(request.args.get('mobil_conf'))
+    motor_conf = float(request.args.get('motor_conf'))
+    sedan_conf = float(request.args.get('sedan_conf'))
+    confidence_cutoff = {'mobil': mobil_conf, 'motor': motor_conf, 'sedan': sedan_conf}
+    print(image_path, mobil_conf, motor_conf, sedan_conf)
     detected_result = detect_image.detect(
         image_path, model, filename, confidence_cutoff)
 

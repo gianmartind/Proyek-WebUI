@@ -34,7 +34,8 @@
                         !
                     </div>
                     <div class="w3-cell">
-                        <button class="buttonb-small" id="choose_model" onclick="choose_model()" type="button">Choose</button>
+                        <button class="buttonb-small" id="choose_model" onclick="choose_model()"
+                            type="button">Choose</button>
                     </div>
                 </div>
                 <div class="w3-container w3-cell-row w3-border">
@@ -53,6 +54,28 @@
                         <button class="w3-button w3-cell-row w3-blue detect" onclick="detect_image()">Detect</button>
                         <p class="selected-model" id="selected-model">model not selected!</p>
                     </div>
+                    <div class="w3-cell-row" id="conf_control" style="display: none;">
+                        <h5>Minimum Confidence Level</h5>
+                        <div class="w3-row" style="width: 75%;">
+                            <label for="mobil_conf" class="w3-quarter">Mobil</label>
+                            <input class="w3-half" type="range" min="10" max="100" value="70" id="mobil_conf" name="mobil_conf"
+                                oninput="sliderValue(this)">
+                            <label class="w3-quarter" id="mobil_conf_val">0.7</label>
+                        </div>
+                        <div class="w3-row" style="width: 75%;">
+                            <label for="motor_conf" class="w3-quarter">Motor</label>
+                            <input class="w3-half" type="range" min="10" max="100" value="70" id="motor_conf" name="motor_conf"
+                                oninput="sliderValue(this)">
+                            <label class="w3-quarter" id="motor_conf_val">0.7</label>
+                        </div>
+                        <div class="w3-row" style="width: 75%;" id="conf_sedan">
+                            <label for="sedan_conf" class="w3-quarter">Sedan</label>
+                            <input class="w3-half" type="range" min="10" max="100" value="70" id="sedan_conf" name="sedan_conf"
+                                oninput="sliderValue(this)">
+                            <label class="w3-quarter" id="sedan_conf_val">0.7</label>
+                        </div>
+                        <div class="w3-row w3-padding"></div>
+                    </div>
                 </div>
             </div>
             <div class="w3-container w3-cell w3-twothird w3-leftbar w3-mobile hasil_keluaran">
@@ -70,99 +93,20 @@
                         </div>
                     </div>
                 </div>
-                <div class="result-data w3-container w3-padding">
+                <div class="result-data w3-container w3-padding" id="detect_result" style="display: none;">
                     <span class="w3-margin"><span class="data-name">Total: </span> <span
                             id="detect-total"></span></span>
                     <span class="w3-margin"><span class="data-name">Mobil (Non Sedan): </span> <span
                             id="detect-mobil"></span></span>
                     <span class="w3-margin"><span class="data-name">Motor: </span> <span
                             id="detect-motor"></span></span>
-                    <span class="w3-margin"><span class="data-name">Sedan: </span> <span
+                    <span class="w3-margin"><span class="data-name" id="name_sedan">Sedan: </span> <span
                             id="detect-sedan"></span></span>
                 </div>
             </div>
         </div>
     </div>
-
 </body>
-
-<script>
-    var model_set = false
-    var image_path = ""
-
-    document.getElementById('image-input').onchange = function () {
-        let value = this.value.split("\\")
-        document.getElementById('image-input-button').innerHTML = value[2]
-    };
-
-    function remove_green(option) {
-        option.classList.remove('w3-green')
-    }
-    function choose_model() {
-        let model_name = document.getElementById('model').value
-        let model_loader = document.getElementById('model-loader')
-        model_loader.textContent = "."
-        fetch('/get_model?model_name=' + model_name).then((response) => {
-            return response.json();
-        }).then((result) => {
-            console.log(result.result)
-            //image_path = result.result
-            model_set = true
-            model_loader.textContent = "\u2713"
-            document.getElementById("selected-model").textContent = result.result
-            //console.log(image_path)
-        });
-    }
-
-    function upload_file() {
-        let input = document.querySelector('input[type="file"]')
-
-        let data = new FormData()
-        data.append('file', input.files[0])
-        data.append('user', 'hubot')
-
-        fetch('/upload', {
-            method: 'POST',
-            body: data
-        }).then((response) => {
-            return response.json();
-        }).then((result) => {
-            document.getElementById('input-img').src = result.result
-            image_path = result.result
-            console.log(image_path)
-            document.getElementById('image-input-button').innerHTML = "Choose File"
-            document.querySelector('input[type="file"]').value = ""
-        });
-    }
-
-    var detection = document.getElementById("detection")
-    var detect_total = document.getElementById('detect-total')
-    var detect_mobil = document.getElementById('detect-mobil')
-    var detect_motor = document.getElementById('detect-motor')
-    var detect_sedan = document.getElementById('detect-sedan')
-    var loader = document.getElementById('loader-container')
-
-    function detect_image() {
-        if (model_set & image_path != "") {
-            loader.style.display = "block"
-            fetch('/detect?image_path=' + image_path).then((response) => {
-                return response.json();
-            }).then((result) => {
-
-                detection.src = result.path
-                detect_mobil.innerHTML = result.mobil
-                detect_motor.innerHTML = result.motor
-                detect_sedan.innerHTML = result.sedan
-                detect_total.innerHTML = result.mobil + result.motor
-                console.log(result)
-                loader.style.display = "none"
-                //image_path = result.result
-                //console.log(image_path)
-            });
-        } else {
-            alert("Model not set and/or Image not selected!")
-        }
-    }
-</script>
+<script type="text/javascript" src="{{ url_for('static', filename='scripts/script.js') }}"></script>
 
 </html>
