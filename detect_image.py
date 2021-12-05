@@ -116,7 +116,6 @@ def detect(image_path, model, filename, confidence_cutoff):
     cutoff_motor = confidence_cutoff['motor']
     cutoff_mobil = confidence_cutoff['mobil']
     cutoff_sedan = confidence_cutoff['sedan']
-    print(cutoff_motor, cutoff_mobil, cutoff_sedan)
 
     i = 0
     # visualize detections
@@ -125,10 +124,8 @@ def detect(image_path, model, filename, confidence_cutoff):
 
         # scores are sorted so we can break
         if label == 0 and score < cutoff_motor:
-            print(label, score, i)
             continue
         elif label == 1 and score < cutoff_mobil:
-            print(label, score, i)
             continue
         elif label == 2 and score < cutoff_sedan:
             continue
