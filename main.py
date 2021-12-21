@@ -61,12 +61,14 @@ def detect_object():
     mobil_conf = float(request.args.get('mobil_conf'))
     motor_conf = float(request.args.get('motor_conf'))
     sedan_conf = float(request.args.get('sedan_conf'))
-    confidence_cutoff = {'mobil': mobil_conf, 'motor': motor_conf, 'sedan': sedan_conf}
+    truk_conf = float(request.args.get('truk_conf'))
+    bus_conf = float(request.args.get('bus_conf'))
+    confidence_cutoff = {'mobil': mobil_conf, 'motor': motor_conf, 'sedan': sedan_conf, 'bus': bus_conf, 'truk': truk_conf}
     print(image_path, mobil_conf, motor_conf, sedan_conf)
-    detected_result = detect_image.detect(
+    result = detect_image.detect(
         image_path, model, filename, confidence_cutoff)
 
-    return jsonify(detected_result)
+    return jsonify(result)
 
 
 if __name__ == '__main__':

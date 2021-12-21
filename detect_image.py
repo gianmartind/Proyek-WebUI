@@ -19,6 +19,9 @@ from PIL import Image
 import string
 import random
 
+import plotly.express as px
+import plotly.offline
+
 def get_session():
     config = tf.compat.v1.ConfigProto()
     config.gpu_options.allow_growth = True
@@ -91,7 +94,7 @@ def id_generator(size=12, chars=string.ascii_letters + string.digits):
 def detect(image_path, model, filename, confidence_cutoff):
     image = np.asarray(Image.open(image_path).convert('RGB'))
     image = image[:, :, ::-1].copy()
-    labels_to_names = {0: 'motor', 1: 'mobil', 2: 'sedan'}
+    labels_to_names = {0: 'motor', 1: 'mobil', 2: 'sedan', 3: 'truk', 4: 'bus'}
 
     # copy to draw on
     draw = image.copy()
@@ -111,11 +114,14 @@ def detect(image_path, model, filename, confidence_cutoff):
     # correct for image scale
     boxes /= scale
 
-    detect_result = {"mobil": 0, "motor": 0, "sedan": 0}
+    detect_result = {"mobil": 0, "motor": 0, "sedan": 0, "truk": 0, "bus": 0}
 
     cutoff_motor = confidence_cutoff['motor']
     cutoff_mobil = confidence_cutoff['mobil']
     cutoff_sedan = confidence_cutoff['sedan']
+    cutoff_truk = confidence_cutoff['truk']
+    cutoff_bus = confidence_cutoff['bus']
+
 
     i = 0
     # visualize detections
@@ -128,6 +134,10 @@ def detect(image_path, model, filename, confidence_cutoff):
         elif label == 1 and score < cutoff_mobil:
             continue
         elif label == 2 and score < cutoff_sedan:
+            continue
+        elif label == 3 and score < cutoff_truk:
+            continue
+        elif label == 4 and score < cutoff_bus:
             continue
         elif label == -1:
             continue
@@ -145,8 +155,7 @@ def detect(image_path, model, filename, confidence_cutoff):
         else:
             caption = "{} {:.3f}".format(labels_to_names[label], score)
 
-        detect_result[labels_to_names[label]
-                      ] = detect_result[labels_to_names[label]] + 1
+        detect_result[labels_to_names[label]] = detect_result[labels_to_names[label]] + 1
 
         #cv2.putText(draw, caption, (b[0], b[1] - 10), cv2.FONT_HERSHEY_PLAIN, 2, (0, 0, 0), 3)
         #cv2.putText(draw, caption, (b[0], b[1] - 10), cv2.FONT_HERSHEY_PLAIN, 1, (255, 255, 255), 1)
@@ -157,6 +166,8 @@ def detect(image_path, model, filename, confidence_cutoff):
     detected_image_path = './static/uploads/detection/' + id_generator() + filename
     draw = draw.save(detected_image_path)
 
-    detect_result['path'] = detected_image_path
+    result = dict()
+    result['path'] = detected_image_path
+    result['count'] = detect_result
 
-    return detect_result
+    return result

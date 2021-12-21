@@ -8,10 +8,12 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/w3.css') }}" />
     <link rel="stylesheet" href="{{ url_for('static', filename='styles/styles.css') }}">
     <title>Halaman Utama</title>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script> 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 
 <body>
-    <div class="w3-container w3-cell-row main_home">
+    <div class="w3-container w3-cell-row main_home w3-padding">
         <div class="w3-container w3-cell-row title">
             <h1>Deteksi Jenis Kendaraan</h1>
         </div>
@@ -20,7 +22,7 @@
             <div class="w3-container w3-cell w3-third w3-mobile">
                 <h2>Pilih Gambar</h2>
                 <div class="w3-margin w3-cell-row w3-container model-selector">
-                    <div class="w3-cell">
+                    <div class="w3-cell" style="position: relative;">
                         <label for="model">Choose model: </label>
                     </div>
                     <div class="w3-cell select">
@@ -30,8 +32,8 @@
                             {% endfor %}
                         </select>
                     </div>
-                    <div class="w3-cell" id="model-loader">
-                        !
+                    <div class="w3-cell">
+                        <i class="fa fa-exclamation" id="model-loader"></i>
                     </div>
                     <div class="w3-cell">
                         <button class="buttonb-small" id="choose_model" onclick="choose_model()"
@@ -54,7 +56,7 @@
                         <button class="w3-button w3-cell-row w3-blue detect" onclick="detect_image()">Detect</button>
                         <p class="selected-model" id="selected-model">model not selected!</p>
                     </div>
-                    <div class="w3-cell-row" id="conf_control" style="display: none;">
+                    <div class="w3-cell-row" id="conf_control">
                         <h5>Minimum Confidence Level</h5>
                         <div class="w3-row" style="width: 75%;">
                             <label for="mobil_conf" class="w3-quarter">Mobil</label>
@@ -73,6 +75,18 @@
                             <input class="w3-half" type="range" min="10" max="100" value="70" id="sedan_conf" name="sedan_conf"
                                 oninput="sliderValue(this)">
                             <label class="w3-quarter" id="sedan_conf_val">0.7</label>
+                        </div>
+                        <div class="w3-row" style="width: 75%;" id="conf_bus">
+                            <label for="bus_conf" class="w3-quarter">Bus</label>
+                            <input class="w3-half" type="range" min="10" max="100" value="70" id="bus_conf" name="bus_conf"
+                                oninput="sliderValue(this)">
+                            <label class="w3-quarter" id="bus_conf_val">0.7</label>
+                        </div>
+                        <div class="w3-row" style="width: 75%;" id="conf_truk">
+                            <label for="truk_conf" class="w3-quarter">Truk</label>
+                            <input class="w3-half" type="range" min="10" max="100" value="70" id="truk_conf" name="truk_conf"
+                                oninput="sliderValue(this)">
+                            <label class="w3-quarter" id="truk_conf_val">0.7</label>
                         </div>
                         <div class="w3-row w3-padding"></div>
                     </div>
@@ -93,15 +107,24 @@
                         </div>
                     </div>
                 </div>
-                <div class="result-data w3-container w3-padding" id="detect_result" style="display: none;">
-                    <span class="w3-margin"><span class="data-name">Total: </span> <span
-                            id="detect-total"></span></span>
-                    <span class="w3-margin"><span class="data-name">Mobil (Non Sedan): </span> <span
-                            id="detect-mobil"></span></span>
-                    <span class="w3-margin"><span class="data-name">Motor: </span> <span
-                            id="detect-motor"></span></span>
-                    <span class="w3-margin"><span class="data-name" id="name_sedan">Sedan: </span> <span
-                            id="detect-sedan"></span></span>
+                <div class="result-data w3-container w3-padding" id="detect_result">
+                    <div class="w3-quarter">
+                        <div class="w3-margin"><span class="data-name">Total: </span> <span
+                                id="detect-total"></span></div>
+                        <div class="w3-margin"><span class="data-name">Mobil (Non Sedan): </span> <span
+                                id="detect-mobil"></span></div>
+                        <div class="w3-margin"><span class="data-name">Motor: </span> <span
+                                id="detect-motor"></span></div>
+                        <div class="w3-margin"><span class="data-name" id="name_sedan">Sedan: </span> <span
+                                id="detect-sedan"></span></div>
+                        <div class="w3-margin"><span class="data-name" id="name_bus">Bus: </span> <span
+                                id="detect-bus"></span></div>
+                        <div class="w3-margin"><span class="data-name" id="name_truk">Truk: </span> <span
+                                id="detect-truk"></span></div>
+                    </div>
+                    <div class="w3-threequarter">
+                        <div id="result-graph"></div>
+                    </div>
                 </div>
             </div>
         </div>

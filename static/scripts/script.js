@@ -13,10 +13,11 @@ function choose_model() {
   let model_name = document.getElementById("model").value;
   let model_loader = document.getElementById("model-loader");
   //temporary
-  document.getElementById("conf_control").style.display = "none";
-  document.getElementById("detect_result").style.display = "none";
+  // document.getElementById("conf_control").style.display = "none";
+  // document.getElementById("detect_result").style.display = "none";
   //
-  model_loader.textContent = ".";
+  model_loader.classList.remove("fa-exclamation", "fa-check", "fa-spinner");
+  model_loader.classList.add("fa-spinner");
   fetch("/get_model?model_name=" + model_name)
     .then((response) => {
       return response.json();
@@ -25,25 +26,10 @@ function choose_model() {
       console.log(result.result);
       //image_path = result.result
       model_set = true;
-      model_loader.textContent = "O";
+      model_loader.classList.remove("fa-exclamation", "fa-check", "fa-spinner");
+      model_loader.classList.add("fa-check");
       document.getElementById("selected-model").textContent = result.result;
       num_classes = model_name.split("_")[0]
-      //temporary
-      if(num_classes == 2) {
-        document.getElementById("conf_control").style.display = "block";
-        document.getElementById("detect_result").style.display = "block";
-        document.getElementById("conf_sedan").style.display = "none";
-        document.getElementById("name_sedan").style.display = "none";
-        document.getElementById("detect-sedan").style.display = "none";
-      } else if(num_classes == 3) {
-        document.getElementById("conf_control").style.display = "block";
-        document.getElementById("detect_result").style.display = "block";
-        document.getElementById("conf_sedan").style.display = "block";
-        document.getElementById("name_sedan").style.display = "inline";
-        document.getElementById("detect-sedan").style.display = "inline";
-      }
-      //
-      //console.log(image_path)
     });
 }
 
@@ -75,7 +61,11 @@ var detect_total = document.getElementById("detect-total");
 var detect_mobil = document.getElementById("detect-mobil");
 var detect_motor = document.getElementById("detect-motor");
 var detect_sedan = document.getElementById("detect-sedan");
+var detect_bus = document.getElementById("detect-bus");
+var detect_truk = document.getElementById("detect-truk");
 var loader = document.getElementById("loader-container");
+var result_graph = document.getElementById("result-graph");
+var result_count;
 
 function detect_image() {
   if (model_set & (image_path != "")) {
@@ -83,25 +73,58 @@ function detect_image() {
     let mobil_conf = document.getElementById("mobil_conf").value / 100;
     let motor_conf = document.getElementById("motor_conf").value / 100;
     let sedan_conf = document.getElementById("sedan_conf").value / 100;
+    let bus_conf = document.getElementById("bus_conf").value / 100;
+    let truk_conf = document.getElementById("truk_conf").value / 100;
 
-    fetch("/detect?image_path=" + image_path + "&mobil_conf=" + mobil_conf + "&motor_conf=" + motor_conf + "&sedan_conf=" + sedan_conf)
+    fetch("/detect?image_path=" + image_path + "&mobil_conf=" + mobil_conf + "&motor_conf=" + motor_conf + "&sedan_conf=" + sedan_conf + "&bus_conf=" + bus_conf + "&truk_conf=" + truk_conf)
       .then((response) => {
         return response.json();
       })
       .then((result) => {
         detection.src = result.path;
-        detect_mobil.innerHTML = result.mobil;
-        detect_motor.innerHTML = result.motor;
-        detect_sedan.innerHTML = result.sedan;
-        detect_total.innerHTML = result.mobil + result.motor;
-        console.log(result);
+        detect_mobil.innerHTML = result.count.mobil;
+        detect_motor.innerHTML = result.count.motor;
+        detect_sedan.innerHTML = result.count.sedan;
+        detect_bus.innerHTML = result.count.bus;
+        detect_truk.innerHTML = result.count.truk;
+        detect_total.innerHTML = result.count.mobil + result.count.motor + result.count.sedan + result.count.bus + result.count.truk;
+        console.log(result.count);
         loader.style.display = "none";
+        result_count = result.count
+        let plot = create_plot(result_count);
+        Plotly.newPlot('result-graph', plot.data, plot.layout, plot.config);
         //image_path = result.result
         //console.log(image_path)
       });
   } else {
     alert("Model not set and/or Image not selected!");
   }
+}
+
+function create_plot(count){
+  var data = [
+    {
+      x: Object.keys(count),
+      y: Object.values(count),
+      type: 'bar'
+    }
+  ];
+
+  var layout = {
+    title: {
+      text:'Object Count',
+      font: {
+        family: 'Google',
+      },
+      xref: 'paper',
+      x: 0.0,
+    },
+    xaxis: { type: 'category' }
+  };
+
+  var config = {responsive: true}
+
+  return {"data":data, "layout":layout, "config":config};
 }
 
 function sliderValue(x) {
