@@ -40,8 +40,8 @@
                             type="button">Choose</button>
                     </div>
                 </div>
-                <div class="w3-container w3-cell-row w3-border">
-                    <img id="input-img" src="../picture/input_placeholder.jpg" alt="input image" class="input_pic" />
+                <div class="w3-cell-row w3-border w3-round-xlarge" style="overflow: hidden;">
+                    <img id="input-img" src="../static/picture/img_placeholder.png" alt="input image" class="input_pic" />
                 </div>
                 <div class="w3-container w3-cell-row button_section">
                     <div class="w3-cell-row w3-padding">
@@ -58,31 +58,31 @@
                     </div>
                     <div class="w3-cell-row" id="conf_control">
                         <h5>Minimum Confidence Level</h5>
-                        <div class="w3-row" style="width: 75%;">
+                        <div class="w3-row" style="width: 75%;" id="mobil_conf_container">
                             <label for="mobil_conf" class="w3-quarter">Mobil</label>
                             <input class="w3-half" type="range" min="10" max="100" value="70" id="mobil_conf" name="mobil_conf"
                                 oninput="sliderValue(this)">
                             <label class="w3-quarter" id="mobil_conf_val">0.7</label>
                         </div>
-                        <div class="w3-row" style="width: 75%;">
+                        <div class="w3-row" style="width: 75%;" id="motor_conf_container">
                             <label for="motor_conf" class="w3-quarter">Motor</label>
                             <input class="w3-half" type="range" min="10" max="100" value="70" id="motor_conf" name="motor_conf"
                                 oninput="sliderValue(this)">
                             <label class="w3-quarter" id="motor_conf_val">0.7</label>
                         </div>
-                        <div class="w3-row" style="width: 75%;" id="conf_sedan">
+                        <div class="w3-row" style="width: 75%;" id="sedan_conf_container">
                             <label for="sedan_conf" class="w3-quarter">Sedan</label>
                             <input class="w3-half" type="range" min="10" max="100" value="70" id="sedan_conf" name="sedan_conf"
                                 oninput="sliderValue(this)">
                             <label class="w3-quarter" id="sedan_conf_val">0.7</label>
                         </div>
-                        <div class="w3-row" style="width: 75%;" id="conf_bus">
+                        <div class="w3-row" style="width: 75%;" id="bus_conf_container">
                             <label for="bus_conf" class="w3-quarter">Bus</label>
                             <input class="w3-half" type="range" min="10" max="100" value="70" id="bus_conf" name="bus_conf"
                                 oninput="sliderValue(this)">
                             <label class="w3-quarter" id="bus_conf_val">0.7</label>
                         </div>
-                        <div class="w3-row" style="width: 75%;" id="conf_truk">
+                        <div class="w3-row" style="width: 75%;" id="truk_conf_container">
                             <label for="truk_conf" class="w3-quarter">Truk</label>
                             <input class="w3-half" type="range" min="10" max="100" value="70" id="truk_conf" name="truk_conf"
                                 oninput="sliderValue(this)">
@@ -98,11 +98,11 @@
                         <span>
                             <h2>Hasil Deteksi</h2>
                         </span>
-                        <div class="w3-container w3-border" style="position: relative;">
+                        <div class="w3-border w3-round-xlarge" style="position: relative; overflow: hidden;">
                             <div class="loader-container" id='loader-container'>
                                 <div class="loader"></div>
                             </div>
-                            <img class="output-img" src="../picture/output_placeholder.png" id="detection"
+                            <img class="output-img" src="../static/picture/img_placeholder.png" id="detection"
                                 alt="output-img" />
                         </div>
                     </div>
@@ -111,15 +111,15 @@
                     <div class="w3-quarter">
                         <div class="w3-margin"><span class="data-name">Total: </span> <span
                                 id="detect-total"></span></div>
-                        <div class="w3-margin"><span class="data-name">Mobil (Non Sedan): </span> <span
+                        <div class="w3-margin" id="detect-mobil-container"><span class="data-name">Mobil (Non Sedan): </span> <span
                                 id="detect-mobil"></span></div>
-                        <div class="w3-margin"><span class="data-name">Motor: </span> <span
+                        <div class="w3-margin" id="detect-motor-container"><span class="data-name">Motor: </span> <span
                                 id="detect-motor"></span></div>
-                        <div class="w3-margin"><span class="data-name" id="name_sedan">Sedan: </span> <span
+                        <div class="w3-margin" id="detect-sedan-container"><span class="data-name" id="name_sedan">Sedan: </span> <span
                                 id="detect-sedan"></span></div>
-                        <div class="w3-margin"><span class="data-name" id="name_bus">Bus: </span> <span
+                        <div class="w3-margin" id="detect-bus-container"><span class="data-name" id="name_bus">Bus: </span> <span
                                 id="detect-bus"></span></div>
-                        <div class="w3-margin"><span class="data-name" id="name_truk">Truk: </span> <span
+                        <div class="w3-margin" id="detect-truk-container"><span class="data-name" id="name_truk">Truk: </span> <span
                                 id="detect-truk"></span></div>
                     </div>
                     <div class="w3-threequarter">

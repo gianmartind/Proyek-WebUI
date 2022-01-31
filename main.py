@@ -3,20 +3,12 @@ from flask import jsonify
 from werkzeug.utils import secure_filename
 
 from flask import Response
-from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
-from matplotlib.figure import Figure
-
-from IPython import get_ipython
 
 from os import listdir
 
 import detect_image
 # import miscellaneous modules
-import matplotlib.pyplot as plt
-import cv2
 import os
-import numpy as np
-import time
 
 # set tf backend to allow memory to grow, instead of claiming everything
 #import tensorflow as tf
@@ -42,6 +34,7 @@ def upload_file():
             app.config['UPLOAD_FOLDER'], secure_filename(f.filename))
         filename = f.filename
         f.save(save_dir)
+        print(save_dir)
         return jsonify({"result": save_dir})
 
 model = ""

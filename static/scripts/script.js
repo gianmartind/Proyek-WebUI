@@ -1,4 +1,5 @@
 var model_set = false;
+var model_name = "";
 var image_path = "";
 
 document.getElementById("image-input").onchange = function () {
@@ -10,7 +11,7 @@ function remove_green(option) {
   option.classList.remove("w3-green");
 }
 function choose_model() {
-  let model_name = document.getElementById("model").value;
+  model_name = document.getElementById("model").value;
   let model_loader = document.getElementById("model-loader");
   //temporary
   // document.getElementById("conf_control").style.display = "none";
@@ -26,11 +27,32 @@ function choose_model() {
       console.log(result.result);
       //image_path = result.result
       model_set = true;
+      show_result();
+      hide_result(model_name);
       model_loader.classList.remove("fa-exclamation", "fa-check", "fa-spinner");
       model_loader.classList.add("fa-check");
       document.getElementById("selected-model").textContent = result.result;
       num_classes = model_name.split("_")[0]
     });
+}
+
+function show_result() {
+  let classes_array = [detect_mobil_container, detect_motor_container, detect_sedan_container, detect_bus_container, detect_truk_container];
+  let conf_array = [mobil_conf_control, motor_conf_control, sedan_conf_control, bus_conf_control, truk_conf_control];
+  for(let i = 0; i < classes_array.length; i++) {
+    classes_array[i].style.display = "block";
+    conf_array[i].style.display = "block";
+  }
+}
+
+function hide_result(model_name) {
+  let classes_array = [detect_mobil_container, detect_motor_container, detect_sedan_container, detect_bus_container, detect_truk_container];
+  let conf_array = [mobil_conf_control, motor_conf_control, sedan_conf_control, bus_conf_control, truk_conf_control];
+  let num_classes = parseInt(model_name.split("_")[0]);
+  for(let i = num_classes; i < classes_array.length; i++) {
+    classes_array[i].style.display = "None";
+    conf_array[i].style.display = "None";
+  }
 }
 
 function upload_file() {
@@ -56,6 +78,12 @@ function upload_file() {
     });
 }
 
+var detect_mobil_container = document.getElementById("detect-mobil-container");
+var detect_motor_container = document.getElementById("detect-motor-container");
+var detect_sedan_container = document.getElementById("detect-sedan-container");
+var detect_bus_container = document.getElementById("detect-bus-container");
+var detect_truk_container = document.getElementById("detect-truk-container");
+
 var detection = document.getElementById("detection");
 var detect_total = document.getElementById("detect-total");
 var detect_mobil = document.getElementById("detect-mobil");
@@ -63,6 +91,13 @@ var detect_motor = document.getElementById("detect-motor");
 var detect_sedan = document.getElementById("detect-sedan");
 var detect_bus = document.getElementById("detect-bus");
 var detect_truk = document.getElementById("detect-truk");
+
+var mobil_conf_control = document.getElementById("mobil_conf_container");
+var motor_conf_control = document.getElementById("motor_conf_container");
+var sedan_conf_control = document.getElementById("sedan_conf_container");
+var bus_conf_control = document.getElementById("bus_conf_container");
+var truk_conf_control = document.getElementById("truk_conf_container");
+
 var loader = document.getElementById("loader-container");
 var result_graph = document.getElementById("result-graph");
 var result_count;
@@ -102,10 +137,24 @@ function detect_image() {
 }
 
 function create_plot(count){
+  let classes = [];
+  if(model_name.split("_")[0] == "2") {
+    classes = ['mobil', 'motor'];
+  } else if(model_name.split("_")[0] == "3") {
+    classes = ['mobil', 'motor', 'sedan'];
+  } else if(model_name.split("_")[0] == "5") {
+    classes = ['mobil', 'motor', 'sedan', 'bus', 'truk'];
+  }
+
+  let values = [];
+  for (const c of classes) {
+    values.push(count[c]);
+  }
+
   var data = [
     {
-      x: Object.keys(count),
-      y: Object.values(count),
+      x: classes,
+      y: values,
       type: 'bar'
     }
   ];
